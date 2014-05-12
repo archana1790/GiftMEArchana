@@ -8,9 +8,19 @@
         <servlet-name>HelloServlet</servlet-name>
         <servlet-class>com.test.examples.Hello</servlet-class>
     </servlet>
+     <servlet>
+     	<servlet-name>WrapperServlet</servlet-name>
+     	<display-name>WrapperServlet</display-name>
+     	<description></description>
+     	<servlet-class>com.giftme.properties.WrapperServlet</servlet-class>
+     </servlet>
 
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>WrapperServlet</servlet-name>
+    	<url-pattern>/WrapperServlet</url-pattern>
     </servlet-mapping>
 </web-app>

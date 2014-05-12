@@ -23,13 +23,14 @@ Released   : 20140322
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 </head>
+<%@ page import="com.giftme.properties.EbayFBSync" %> 
 <%
-String ebayID = request.getParameter("userId");
-String profID = request.getParameter("pID");
-String dob = request.getParameter("DOB");
-String friends = request.getParameter("friends");
+String ebayID = request.getParameter("ebayUserId");
+String profID = request.getParameter("fbprofileid");
+String dob = request.getParameter("fbdob");
+String friends = request.getParameter("fbfriends");
 
-
+EbayFBSync.add(profID, ebayID);
 
 %>
 
@@ -68,7 +69,9 @@ String friends = request.getParameter("friends");
 
 	<div id="welcome" class="container">
 	
-		<h2>Welcome <%= ebayID %> profile id is <%= profID %></h2>
+		<h2>Welcome <%= ebayID %> profile id is <%= profID %></h2><br />
+		<h2>DOB <%= dob %> <br/></h2>
+		<h2>friends <%= friends %> <br/></h2>
 	</div>
 	<div id="three-column" class="container">
 		<div><span class="arrow-down"></span></div>

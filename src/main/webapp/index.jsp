@@ -61,16 +61,14 @@ Released   : 20140512
   
 	var myId = 0;
 	FB.api('/me', function(response) {
-<<<<<<< HEAD
-    var v = document.getElementById("pID");
-    
-		alert("Friends: "+ response.friends + "\nBirth Day: "+ response.birthday  + "ID: "+response.id);
-		var img_link = "http://graph.facebook.com/"+response.id+"/picture"
-=======
 		myId = response.id;
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
 		document.getElementById('id-fbprofileid').value = response.id;
+		 theApplet = document.getElementById("app");
+		 var str = theApplet.checkifexists(response.id);
+		 document.getElementById("id-ebayuserid").innerHTML = theApplet.checkifexists(response.id);
+		alert(str);
 		
 	FB.api('/me/friends', function(response) {
 	var str = "";
@@ -82,10 +80,10 @@ Released   : 20140512
 	 }
 	 friends = friends + response.data[i].id;
      }
-     //alert(str);
+     alert(friends);
 	 document.getElementById('id-fbfriends').value = friends;
 	});
->>>>>>> fdbc2dd92557ddd30c39058c3346e60c4a45d37e
+
 	});
   }
 </script>
@@ -98,7 +96,9 @@ Released   : 20140512
     onlogin="OnRequestPermission();">
 </fb:login-button>
 <fb:name uid="loggedinuser" use-you="no"></fb:name>
+
 <div id="header-wrapper">
+
 	<div id="header" class="container">
 		<div id="logo">
         	<img src="images/cutoutlogo.jpg" alt="some_text">
@@ -121,21 +121,17 @@ Released   : 20140512
      <div class="title">
 	  <h2>Welcome to our website</h2>
 		</div>
-		<form action="main.jsp" method="post">
+		<form action="friends.jsp" method="post">
         	<input id="pID" type="hidden" value=""/> 
 	
 		<table align="center">
-<<<<<<< HEAD
-		<tr><td><h4>Name</h4></td><td><input type="text" id="id-username"/> </td></tr>
 
-		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="userId"/> </td></tr>
-=======
 		<tr><td><h4>Name</h4></td><td><input type="text" id="id-fbname" name="fbname"/> </td></tr>
 		<tr><td><h4>Date-Of-Birth</h4></td><td><input type="text" id="id-fbdob" name="fbdob"/> </td></tr>
-		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="ebayUserId"/> </td></tr>
+		<tr><td><h4>eBay User ID</h4></td><td><input type="text" id="id-ebayuserid" name="ebayUserId"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
->>>>>>> fdbc2dd92557ddd30c39058c3346e60c4a45d37e
+
 		<tr><td><input type="submit" class="button"/> </td></tr>
 		</table>
 		</form>
@@ -225,5 +221,6 @@ Released   : 20140512
 		<li><a href="#" class="icon icon-rss"><span>Pinterest</span></a></li>
 	</ul>
 </div> -->
+<applet id="app" width=0 height=0 code="WrapperAplet.class"></applet>
 </body>
 </html>
