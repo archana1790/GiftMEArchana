@@ -69,36 +69,43 @@ Released   : 20140512
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
 		document.getElementById('id-fbprofileid').value = response.id;
-		 theApplet = document.getElementById("app");
-		 var str = theApplet.checkifexists(response.id);
-		 document.getElementById("id-ebayuserid").innerHTML = theApplet.checkifexists(response.id);
-		alert(str);
+		alert(response.id);
+		/*  theApplet = document.getElementById("app"); */
+		 
+		/* /*  var str = theApplet.checkifexists(response.id);
+		 document.getElementById("id-ebayuserid").innerHTML = theApplet.checkifexists(response.id); 
+		alert(str); */
 		
 	FB.api('/me/friends', function(response) {
 	var str = "";
 	var friends = "";
+	var temp1="";
+	var temp2="";
+	if(response.data.length==1) {friends = response.data[0].id; str= response.data[0].name;}
+	else{
 	for(var i = 0; i < response.data.length; i++) {
-     str = str + response.data[i].name;
-	 if(i > 0) {
-	   friends = friends + ":";
-	 }
-	 friends = friends + response.data[i].id;
+     temp2 = str + ":"+response.data[i].name;
+     temp1 = friends+":"+response.data[i].id;
+	 
+	   friends = temp1;
+	   str=temp2;
+	
+	
 	 send_app_request(response.data[i].id);
      }
-<<<<<<< HEAD
+	}
      alert(friends);
-=======
-     alert(str);
->>>>>>> c184e1038db1ee0a6e30a9408e583e9dbbbd912a
+
 	 document.getElementById('id-fbfriends').value = friends;
+	 document.getElementById('id-fbfriendsnames').value = str;
 	});
 
 	});
   }
-<<<<<<< HEAD
-</script>
 
-=======
+
+
+
 	function send_app_request(userId){	
 	
 	alert(app_access_token);
@@ -121,7 +128,7 @@ Released   : 20140512
 		alert("app request sent");
 	}
 </script>
->>>>>>> c184e1038db1ee0a6e30a9408e583e9dbbbd912a
+
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
 <fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
@@ -165,7 +172,7 @@ Released   : 20140512
 		<tr><td><h4>eBay User ID</h4></td><td><input type="text" id="id-ebayuserid" name="ebayUserId"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
-
+        <tr><td><h4></h4></td><td><input id="id-fbfriendsnames" name="fbfriendsnames" type="hidden"/> </td></tr>
 		<tr><td><input type="submit" class="button"/> </td></tr>
 		</table>
 		</form>

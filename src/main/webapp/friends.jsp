@@ -23,26 +23,39 @@ Released   : 20140322
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 <%@ page import="com.giftme.properties.EbayFBSync" %>
 <%@ page import="com.giftme.properties.WishlistGen" %>
+<%String[] output=null; %>
 <%
 String ebayID = request.getParameter("ebayUserId");
 String profID = request.getParameter("fbprofileid");
+
 String dob = request.getParameter("fbdob");
+
 String friends = request.getParameter("fbfriends");
+String friendsnames = request.getParameter("fbfriendsnames");
 String[] str = friends.split(":");
-String output=null;
-System.out.println(str.length);
+String[] strname = friendsnames.split(":");
+
+System.out.println("friends id "+friends);
+System.out.println("ebay ID "+ebayID);
+if(str.length>1){
 for(int i=0;i<str.length;i++){
     if(ebayID == null||ebayID.isEmpty()){
     	ebayID = EbayFBSync.checkifexists(str[i]);
+    	 System.out.println(str[i]);
     }
-   output= WishlistGen.getWishList(ebayID);
-   System.out.println(str[i]);
-    
 }
-%>
-
+}
+if(ebayID == null||ebayID.isEmpty()){
+	ebayID = EbayFBSync.checkifexists(str[0]);
+	 System.out.println(str[0]);
+	 System.out.println(ebayID);
+	 
+}
+   output= WishlistGen.getWishList(ebayID);
+   String src="",text="",link="",price="";
+   %>
 </head>
-<body>
+<body>t
 <div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
@@ -94,9 +107,46 @@ for(int i=0;i<str.length;i++){
 			</div>
 		</div>
 	</div> -->
-	<h2>friends <%= friends %> <br/></h2>
+	<h2><%=strname[0] %> <br/></h2>
 	<div><span class="arrow-down"></span></div>
 	<div id="portfolio" class="container">
+	<table>
+	 <tr>
+	<%
+	
+  for(int i=0;i<output.length;i++){
+	  System.out.println(output[i]);
+	  String[] s = output[i].split("|");
+      link=s[0];text=s[1];src=s[2];price=s[3];
+      %>
+     
+         <td>
+            <tr><td><a href="<%=link %>"><img src="<%=link %>"/></a></td></tr>
+            <tr><td><p><%=price %></p></td></tr>  
+            <tr><td><p><%=text %></p></td></tr> 
+            <tr><td><a href="<%=link %>"class="button button-small" value="submit"/></td></tr> 
+         </td>
+      
+      
+     <%--  <div class=column">
+			<div class="box">
+			<%=src %>
+				<p><%=text %><%=price %></p>
+		  <a href="<%=link %>" class="button button-small">View Item</a>
+		  
+		   </div>
+		</div> --%>
+      <%
+	
+
+ 
+  }
+
+
+%>
+  </tr> 
+</table>
+	
 		<!-- <div class="column1">
 			<div class="box">
 			  <h3>Vestibulum venenatis</h3>
