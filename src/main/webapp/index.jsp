@@ -48,13 +48,16 @@ Released   : 20140322
 	  <h2>Welcome to our website</h2>
 		</div>
 		<form action="main.jsp" method="post">
-		<table align="center">
+		<table align="center">cd m	
 		<tr><td><h4>Name</h4></td><td><input type="text"/> </td></tr>
 		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="userId"/> </td></tr>
-		
+		<tr><td><h4>fb profile id</h4></td><td><input type="text" name="profileId"/> </td></tr>
+		<tr><td><h4>email id</h4></td><td><input type="text" name="emailId"/> </td></tr>
+		<tr><td><h4>birth day</h4></td><td><input type="text" name="birthday"/> </td></tr>
 		<tr><td><input type="submit" class="button"/> </td></tr>
 		</table>
 		</form>
+		
 	</div>
 	<div id="welcome" class="container" style="display:none;">
 	
