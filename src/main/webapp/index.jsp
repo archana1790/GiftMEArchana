@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by TEMPLATED
-http://templated.co
-Released for free under the Creative Commons Attribution License
+http:eleased for free under the Creative Commons Attribution License//templated.co
+R
 
-Name       : Undeviating 
-Description: A two-column, fixed-width design with dark color scheme.
+Name       : Sumit Bala 
+Description: GiftME App index page.
 Version    : 1.0
-Released   : 20140322
+Released   : 20140512
 
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -37,7 +37,14 @@ Released   : 20140322
 		testAPI();
 	  }
 	  else {
-		FB.login();
+		//FB.login();
+		FB.login(function (response) {
+		if (response.authResponse) {
+			// authorized
+		} else {
+			// canceled
+		}
+		}, {scope: 'email,user_birthday,public_profile,user_friends'});
 	  }
 	});
   };
@@ -52,29 +59,38 @@ Released   : 20140322
 
   function testAPI() {
   
+	var myId = 0;
 	FB.api('/me', function(response) {
-		alert("Friends: "+ response.friends + "\nBirth Day: "+ response.birthday  + "ID: "+response.id);
-		var img_link = "http://graph.facebook.com/"+response.id+"/picture"
+		myId = response.id;
+		document.getElementById('id-fbname').value = response.name;
+		document.getElementById('id-fbdob').value = response.birthday;
+		document.getElementById('id-fbprofileid').value = response.id;
+		
+	FB.api('/me/friends', function(response) {
+	var str = "";
+	var friends = "";
+	for(var i = 0; i < Math.min(response.data.length, 10); i++) {
+     //str = str + response.data[i].name;
+	 if(i > 0) {
+	   friends = friends + ":";
+	 }
+	 friends = friends + response.data[i].id;
+     }
+     //alert(str);
+	 document.getElementById('id-fbfriends').value = friends;
 	});
-    //console.log('Welcome!  Fetching your information.... ');
-    //FB.api('/me', function(response) {
-      //console.log('Successful login for: ' + response.name);
-		//document.getElementById('status').innerHTML = '<img src="http://graph.facebook.com/' + response.id + '/picture" /> Welcome ' + response.name;
-		//document.getElementById('id-username').text = response.name;
-    //});
+	});
   }
 </script>
 </script>
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
+<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
 <fb:login-button 
     autologoutlink="true" 
     onlogin="OnRequestPermission();">
 </fb:login-button>
 <fb:name uid="loggedinuser" use-you="no"></fb:name>
-<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
-<!--div id="status">
-</div-->
 <div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
@@ -100,9 +116,11 @@ Released   : 20140322
 		</div>
 		<form action="main.jsp" method="post">
 		<table align="center">
-		<tr><td><h4>Name</h4></td><td><input type="text" id="id-username"/> </td></tr>
-		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="userId"/> </td></tr>
-		
+		<tr><td><h4>Name</h4></td><td><input type="text" id="id-fbname" name="fbname"/> </td></tr>
+		<tr><td><h4>Date-Of-Birth</h4></td><td><input type="text" id="id-fbdob" name="fbdob"/> </td></tr>
+		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="ebayUserId"/> </td></tr>
+		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
+		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
 		<tr><td><input type="submit" class="button"/> </td></tr>
 		</table>
 		</form>
