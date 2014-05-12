@@ -23,6 +23,16 @@ Released   : 20140322
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 </head>
+<%
+String ebayID = request.getParameter("userId");
+String profID = request.getParameter("pID");
+String dob = request.getParameter("DOB");
+String friends = request.getParameter("friends");
+
+
+
+%>
+
 <body>
 <div id="header-wrapper">
 	<div id="header" class="container">
@@ -58,7 +68,7 @@ Released   : 20140322
 
 	<div id="welcome" class="container">
 	
-		<h2>Welcome <%= request.getParameter("userId") %></h2>
+		<h2>Welcome <%= ebayID %> profile id is <%= profID %></h2>
 	</div>
 	<div id="three-column" class="container">
 		<div><span class="arrow-down"></span></div>

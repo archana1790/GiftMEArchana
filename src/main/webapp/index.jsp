@@ -53,6 +53,8 @@ Released   : 20140322
   function testAPI() {
   
 	FB.api('/me', function(response) {
+    var v = document.getElementById("pID");
+    
 		alert("Friends: "+ response.friends + "\nBirth Day: "+ response.birthday  + "ID: "+response.id);
 		var img_link = "http://graph.facebook.com/"+response.id+"/picture"
 	});
@@ -64,7 +66,7 @@ Released   : 20140322
     //});
   }
 </script>
-</script>
+
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
 <fb:login-button 
@@ -99,17 +101,12 @@ Released   : 20140322
 	  <h2>Welcome to our website</h2>
 		</div>
 		<form action="main.jsp" method="post">
-<<<<<<< HEAD
-		<table align="center">cd m	
-		<tr><td><h4>Name</h4></td><td><input type="text"/> </td></tr>
-=======
+        	<input id="pID" type="hidden" value=""/> 
+	
 		<table align="center">
 		<tr><td><h4>Name</h4></td><td><input type="text" id="id-username"/> </td></tr>
->>>>>>> 98e7f4c530eb8d23b9134fe98fe2a296c086a47d
+
 		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="userId"/> </td></tr>
-		<tr><td><h4>fb profile id</h4></td><td><input type="text" name="profileId"/> </td></tr>
-		<tr><td><h4>email id</h4></td><td><input type="text" name="emailId"/> </td></tr>
-		<tr><td><h4>birth day</h4></td><td><input type="text" name="birthday"/> </td></tr>
 		<tr><td><input type="submit" class="button"/> </td></tr>
 		</table>
 		</form>
