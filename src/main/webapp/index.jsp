@@ -24,6 +24,57 @@ Released   : 20140322
 
 </head>
 <body>
+<script>
+  window.fbAsyncInit = function() {
+	FB.init({
+	  appId      : '754065517957462',
+	  xfbml      : true,
+	  version    : 'v2.0'
+	});
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+		console.log('Logged in.');
+		testAPI();
+	  }
+	  else {
+		FB.login();
+	  }
+	});
+  };
+
+  (function(d, s, id){
+	 var js, fjs = d.getElementsByTagName(s)[0];
+	 if (d.getElementById(id)) {return;}
+	 js = d.createElement(s); js.id = id;
+	 js.src = "//connect.facebook.net/en_US/sdk.js";
+	 fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+  function testAPI() {
+  
+	FB.api('/me', function(response) {
+		alert("Friends: "+ response.friends + "\nBirth Day: "+ response.birthday  + "ID: "+response.id);
+		var img_link = "http://graph.facebook.com/"+response.id+"/picture"
+	});
+    //console.log('Welcome!  Fetching your information.... ');
+    //FB.api('/me', function(response) {
+      //console.log('Successful login for: ' + response.name);
+		//document.getElementById('status').innerHTML = '<img src="http://graph.facebook.com/' + response.id + '/picture" /> Welcome ' + response.name;
+		//document.getElementById('id-username').text = response.name;
+    //});
+  }
+</script>
+</script>
+<!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button-->
+<fb:login-button 
+    autologoutlink="true" 
+    onlogin="OnRequestPermission();">
+</fb:login-button>
+<fb:name uid="loggedinuser" use-you="no"></fb:name>
+<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
+<!--div id="status">
+</div-->
 <div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
@@ -49,7 +100,7 @@ Released   : 20140322
 		</div>
 		<form action="main.jsp" method="post">
 		<table align="center">
-		<tr><td><h4>Name</h4></td><td><input type="text"/> </td></tr>
+		<tr><td><h4>Name</h4></td><td><input type="text" id="id-username"/> </td></tr>
 		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="userId"/> </td></tr>
 		
 		<tr><td><input type="submit" class="button"/> </td></tr>
