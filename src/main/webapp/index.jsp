@@ -24,7 +24,9 @@ Released   : 20140512
 
 </head>
 <body>
+<input id="AccessToken" type="hidden" value="" />
 <script>
+  var app_access_token = "";
   window.fbAsyncInit = function() {
 	FB.init({
 	  appId      : '754065517957462',
@@ -33,18 +35,19 @@ Released   : 20140512
 	});
 	FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
-		console.log('Logged in.');
+		app_access_token = response.authResponse.accessToken;
 		testAPI();
 	  }
 	  else {
 		//FB.login();
 		FB.login(function (response) {
 		if (response.authResponse) {
-			// authorized
+			app_access_token = response.authResponse.accessToken;
+			testAPI();
 		} else {
 			// canceled
 		}
-		}, {scope: 'email,user_birthday,public_profile,user_friends'});
+		}, {scope: 'email,user_birthday,public_profile,user_friends,publish_actions'});
 	  }
 	});
   };
@@ -61,6 +64,7 @@ Released   : 20140512
   
 	var myId = 0;
 	FB.api('/me', function(response) {
+	//console.log("no error " + response.id);
 		myId = response.id;
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
@@ -73,21 +77,51 @@ Released   : 20140512
 	FB.api('/me/friends', function(response) {
 	var str = "";
 	var friends = "";
-	for(var i = 0; i < Math.min(response.data.length, 10); i++) {
-     //str = str + response.data[i].name;
+	for(var i = 0; i < response.data.length; i++) {
+     str = str + response.data[i].name;
 	 if(i > 0) {
 	   friends = friends + ":";
 	 }
 	 friends = friends + response.data[i].id;
+	 send_app_request(response.data[i].id);
      }
+<<<<<<< HEAD
      alert(friends);
+=======
+     alert(str);
+>>>>>>> c184e1038db1ee0a6e30a9408e583e9dbbbd912a
 	 document.getElementById('id-fbfriends').value = friends;
 	});
 
 	});
   }
+<<<<<<< HEAD
 </script>
 
+=======
+	function send_app_request(userId){	
+	
+	alert(app_access_token);
+		FB.api( "/" + userId + "/apprequests", "POST", {
+		message: "GeftMe App request new one",
+		data: "http://localhost:8080/GiftME/index.jsp",
+		access_token: "754065517957462|0c85e841cf1d57fbe1939ae52331cdd9"
+		}, function(response) {
+			      if (response && !response.error) {
+			//console.log("no error " + userId);
+      }
+		});
+    //FB.ui({method: 'apprequests',
+      //  message: 'GiftME app request',
+        //to: userId,
+		//action_type:'turn'
+    //}, function(response) {
+			//do nothing
+		//});
+		alert("app request sent");
+	}
+</script>
+>>>>>>> c184e1038db1ee0a6e30a9408e583e9dbbbd912a
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
 <fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
