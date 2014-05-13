@@ -31,7 +31,21 @@
   <artifactId>commons-httpclient</artifactId>
   <version>3.0.1</version>
 </dependency>
-
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>servlet-api</artifactId>
+    	<version>3.0-alpha-1</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.jsoup</groupId>
+    	<artifactId>jsoup</artifactId>
+    	<version>1.7.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.sun.jersey</groupId>
+    	<artifactId>jersey-client</artifactId>
+    	<version>1.18</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>GiftME</finalName>

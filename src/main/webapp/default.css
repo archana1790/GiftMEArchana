@@ -625,6 +625,7 @@
 		color: rgba(0,0,0,0.8);
 	}
 
+	.column,
 	.column1,
 	.column2,
 	.column3,
@@ -638,7 +639,7 @@
 	.column3
 	{
 		float: left;
-		margin-right: 24px;
+		margin-right: 50px;
 	}
 	
 	.column4
