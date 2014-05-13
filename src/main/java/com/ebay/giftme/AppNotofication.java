@@ -51,7 +51,7 @@ public class AppNotofication
         	if(tokens.length > 1 && tokens[0] !=null) {
         		if(CSVDBUtil.isUpcomingBirthday(tokens[2])) {
         	    	  User user = facebookClient.fetchObject(tokens[0], User.class);
-        	    	  String userName =   user.getName();
+        	    	  String userName =   user.getFirstName();
         	        List<String> friends = findFacebookFriendsUsingRest(tokens[0],facebookClient);
         	        for(String friend: friends) {
         	        	try{
