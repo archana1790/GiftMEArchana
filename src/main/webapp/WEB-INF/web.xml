@@ -25,5 +25,5 @@
     </servlet-mapping>
 	<listener>
 	<listener-class>com.ebay.giftme.Scheduler</listener-class>
-</listener
+</listener>
 </web-app>

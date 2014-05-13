@@ -96,14 +96,15 @@ Released   : 20140512
 			//console.log("no error " + userId);
       }
 		});
-    //FB.ui({method: 'apprequests',
-      //  message: 'GiftME app request',
-        //to: userId,
-		//action_type:'turn'
-    //}, function(response) {
-			//do nothing
-		//});
 	}
+	function invite_friends() {
+		
+	    FB.ui({method: 'apprequests',
+	        message: 'Check out this cool app - GiftME',
+	    }, function(response) {
+				//do nothing
+			});
+			}
 </script>
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
@@ -143,12 +144,11 @@ Released   : 20140512
 		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="ebayUserId"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
-		<tr><td><input type="submit" class="button"/> </td></tr>
+		<tr><td><input type="submit" class="button"/> </td><td>	<button type="button"  onClick="invite_friends()">Click Me!</button></td></td></tr>
 		</table>
 		</form>
 	</div>
 	<div id="welcome" class="container" style="display:none;">
-	
 		<h2>Welcome user</h2>
 	</div>
 	<div id="three-column" class="container">

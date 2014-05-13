@@ -41,6 +41,8 @@ public class AppNotofication
         String rawAccessToken = new String(method.getResponseBody());
 
         String accessToken = rawAccessToken.split("=")[1];
+  	    FacebookClient facebookClient;
+  	    facebookClient = new DefaultFacebookClient(accessToken);
         
         List<String> dbEntryList = CSVDBUtil.getList();
         
@@ -48,10 +50,12 @@ public class AppNotofication
         	String tokens[] = dbEntry.split(",");
         	if(tokens.length > 1 && tokens[0] !=null) {
         		if(CSVDBUtil.isUpcomingBirthday(tokens[2])) {
-        	        List<String> friends = findFacebookFriendsUsingRest(tokens[0],accessToken);
+        	    	  User user = facebookClient.fetchObject(tokens[0], User.class);
+        	    	  String userName =   user.getName();
+        	        List<String> friends = findFacebookFriendsUsingRest(tokens[0],facebookClient);
         	        for(String friend: friends) {
         	        	try{
-        	        		postAppRequest(accessToken,friend,tokens[0]);
+        	        		postAppRequest(accessToken,friend,userName);
         	        	}
         	        	catch (Exception e) {
         	        		e.printStackTrace();
@@ -76,12 +80,9 @@ public class AppNotofication
 
     }
     
-    public List<String> findFacebookFriendsUsingRest(String userId, String facebookAccessToken){
+    public List<String> findFacebookFriendsUsingRest(String userId, FacebookClient facebookClient){
     	  List<String> myFacebookFriendList= new ArrayList<String>();
-    	  final FacebookClient facebookClient;
-    	  facebookClient = new DefaultFacebookClient(facebookAccessToken);
-    	  User user = facebookClient.fetchObject(userId, User.class);
-    	  String userName =   user.getFirstName();
+
     	  com.restfb.Connection<User> myFriends = facebookClient.fetchConnection(userId + "/friends", User.class);
     	  System.out.println("Count of my friends: " + myFriends.getData().size());
     	  for(User friend: myFriends.getData()){
@@ -92,9 +93,9 @@ public class AppNotofication
     	  return myFacebookFriendList;
     	}
     
-    public static void postAppRequest(String accessToken, String userid, String orgUserId) {
+    public static void postAppRequest(String accessToken, String userid, String userName) {
     	
-    	String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=%40%5B"+ orgUserId +"%5D%20Birthday%20Send%20a%20Gift";
+    	String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template="+ userName +"%20Birthday%20Send%20a%20Gift";
     	//String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=Friends%20Birthday%20Today%20Send%20a%20Gift";
     	//String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=@[" + orgUserId + "] Birthday Today, Send a Gift";
     	//String url =  "https://graph.facebook.com/" + userid + "/apprequests?access_token=" + accessToken + "&message=GiftMe";
