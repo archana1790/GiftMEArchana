@@ -23,4 +23,7 @@
     	<servlet-name>WrapperServlet</servlet-name>
     	<url-pattern>/WrapperServlet</url-pattern>
     </servlet-mapping>
+	<listener>
+	<listener-class>com.ebay.giftme.Scheduler</listener-class>
+</listener
 </web-app>
