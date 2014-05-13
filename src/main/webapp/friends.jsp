@@ -23,39 +23,21 @@ Released   : 20140322
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 <%@ page import="com.giftme.properties.EbayFBSync" %>
 <%@ page import="com.giftme.properties.WishlistGen" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.StringTokenizer" %>
 <%String[] output=null; %>
-<%
-String ebayID = request.getParameter("ebayUserId");
-String profID = request.getParameter("fbprofileid");
+<%String[] ele1, ele2, ele3;%>
+<%Map<String, String[]> myMap = new HashMap<String, String[]>();%> 
 
-String dob = request.getParameter("fbdob");
+<%String name="";String[] vals;String friendname="";String[] splits;String link="";String imgg="";String price="";String desc="";%> 
 
-String friends = request.getParameter("fbfriends");
-String friendsnames = request.getParameter("fbfriendsnames");
-String[] str = friends.split(":");
-String[] strname = friendsnames.split(":");
 
-System.out.println("friends id "+friends);
-System.out.println("ebay ID "+ebayID);
-if(str.length>1){
-for(int i=0;i<str.length;i++){
-    if(ebayID == null||ebayID.isEmpty()){
-    	ebayID = EbayFBSync.checkifexists(str[i]);
-    	 System.out.println(str[i]);
-    }
-}
-}
-if(ebayID == null||ebayID.isEmpty()){
-	ebayID = EbayFBSync.checkifexists(str[0]);
-	 System.out.println(str[0]);
-	 System.out.println(ebayID);
-	 
-}
-   output= WishlistGen.getWishList(ebayID);
-   String src="",text="",link="",price="";
-   %>
+
 </head>
-<body>t
+<body>
 <div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
@@ -107,42 +89,101 @@ if(ebayID == null||ebayID.isEmpty()){
 			</div>
 		</div>
 	</div> -->
-	<h2><%=strname[0] %> <br/></h2>
+
 	<div><span class="arrow-down"></span></div>
 	<div id="portfolio" class="container">
 	<table>
-	 <tr>
+	 
+	 <%
+		 
+String ebayID = request.getParameter("ebayUserId");
+String profID = request.getParameter("fbprofileid");
+// String profID = "716882961707040";
+
+String dob = request.getParameter("fbdob");
+
+String friends = request.getParameter("fbfriends");
+String friendsnames = request.getParameter("fbfriendsnames");
+String[] str = friends.split(":");
+String[] strname = friendsnames.split(":");
+myMap.clear();
+
+
+
+
+System.out.println("friends id "+friends);
+
+if(str.length>1){
+
+for(int i=1;i<str.length;i=i+2){
+	String val = str[i];
+	
+	ele1 = null; ele2 = null; ele3 = null;
+    if(ebayID == null||ebayID.isEmpty()){
+    	ebayID = EbayFBSync.checkifexists(str[i]);
+    	 output= WishlistGen.getWishList(ebayID);
+    	 myMap.put(val, output);
+    
+    
+    	 
+    }
+
+	
+	
+}
+}
+else{
+if(ebayID == null||ebayID.isEmpty()){
+	ebayID = EbayFBSync.checkifexists(str[0]);
+	 
+	 System.out.println(ebayID);
+	  output= WishlistGen.getWishList(ebayID);
+	  myMap.put(str[0], output);
+	 
+}
+}
+
+for (Map.Entry<String, String[]> entry : myMap.entrySet()) {
+	 name= entry.getKey();
+	String[] test = entry.getValue();
+	friendname=name;
+	%>
+	<div id="welcome"><%=friendname %>
 	<%
+	for(int g=0;g<test.length;g++){
+	String value = test[g];
+	System.out.println(value);
+		splits = value.split("\\|");
+		link=splits[0];
+		desc=splits[1];
+		imgg=splits[2];
+		System.out.println(splits[3]);
+		
+	     
+	}
+		
+	%>
 	
-  for(int i=0;i<output.length;i++){
-	  System.out.println(output[i]);
-	  String[] s = output[i].split("|");
-      link=s[0];text=s[1];src=s[2];price=s[3];
-      %>
-     
-         <p>s[0]<br/>
-          s[1]<br/>
-          s[2]<br/>
-          s[3]<br/></p>
-      
-     <%--  <div class=column">
+	<div class="column" style="position:relative;float:left;">
 			<div class="box">
-			<%=src %>
-				<p><%=text %><%=price %></p>
-		  <a href="<%=link %>" class="button button-small">View Item</a>
+			 <a id="img1" href="<%=link %>"> ><img src="<%=imgg %>"/></a>
+				<p><%=desc %></p>
+		  <a href="<%=link %>" class="button button-small">Buy it</a>
 		  
+		 
 		   </div>
-		</div> --%>
-      <%
+		</div>
 	
-
- 
-  }
+	<%
 
 
-%>
-  </tr> 
+
+}
+   %>
+
+
 </table>
+
 	
 		<!-- <div class="column1">
 			<div class="box">
@@ -176,7 +217,7 @@ if(ebayID == null||ebayID.isEmpty()){
 			<a id="more" href=""/>
 		   
 		</div> -->
-		<%=output %>
+		
 	</div>
 </div>
 <div id="footer">

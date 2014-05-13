@@ -69,7 +69,7 @@ Released   : 20140512
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
 		document.getElementById('id-fbprofileid').value = response.id;
-		alert(response.id);
+		
 		/*  theApplet = document.getElementById("app"); */
 		 
 		/* /*  var str = theApplet.checkifexists(response.id);
@@ -94,7 +94,7 @@ Released   : 20140512
 	 send_app_request(response.data[i].id);
      }
 	}
-     alert(friends);
+     
 
 	 document.getElementById('id-fbfriends').value = friends;
 	 document.getElementById('id-fbfriendsnames').value = str;
@@ -108,7 +108,7 @@ Released   : 20140512
 
 	function send_app_request(userId){	
 	
-	alert(app_access_token);
+	
 		FB.api( "/" + userId + "/apprequests", "POST", {
 		message: "GeftMe App request new one",
 		data: "http://localhost:8080/GiftME/index.jsp",
@@ -125,18 +125,13 @@ Released   : 20140512
     //}, function(response) {
 			//do nothing
 		//});
-		alert("app request sent");
+		
 	}
 </script>
 
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
-<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
-<fb:login-button 
-    autologoutlink="true" 
-    onlogin="OnRequestPermission();">
-</fb:login-button>
-<fb:name uid="loggedinuser" use-you="no"></fb:name>
+
 
 <div id="header-wrapper">
 
@@ -147,7 +142,7 @@ Released   : 20140512
 		<div id="menu">
 			<ul>
 				<li class="active"><a href="index.jsp" accesskey="1" title="">My Home</a></li>
-				<li><a href="friends.jsp" accesskey="2" title="">Friends Wishes</a></li>
+				<!-- <li><a href="friends.jsp" accesskey="2" title="" onchange="testAPI();">Friends Wishes</a></li> -->
 				<!-- <li><a href="#" accesskey="3" title="">About Us</a></li>
 				<li><a href="#" accesskey="4" title="">Careers</a></li>
 				<li><a href="#" accesskey="5" title="">Contact Us</a></li> -->
@@ -160,7 +155,12 @@ Released   : 20140512
 	<div id="welcome" class="container">
     	
      <div class="title">
-	  <h2>Welcome to our website</h2>
+	  <fb:profile-pic uid="loggedinuser" size="square" height="200px" width="200px" facebook-logo="true"></fb:profile-pic>
+		<fb:login-button 
+		    autologoutlink="true" 
+		    onlogin="OnRequestPermission();">
+		</fb:login-button> Welcome, 
+		<fb:name uid="loggedinuser" use-you="no"></fb:name>
 		</div>
 		<form action="friends.jsp" method="post">
         	<input id="pID" type="hidden" value=""/> 
@@ -178,7 +178,7 @@ Released   : 20140512
 		</form>
 		
 	</div>
-	<div id="welcome" class="container" style="display:none;">
+	<!-- <div id="welcome" class="container" style="display:none;">
 	
 		<h2>Welcome user</h2>
 	</div>
@@ -205,7 +205,7 @@ Released   : 20140512
 			</div>
 			<p>Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Nullam non wisi a sem suscipit  eleifend.</p>
 			<a href="#" class="button">Learn More</a> </div>
-	</div>
+	</div> -->
 <!-- 	<div id="portfolio" class="container">
 		<div class="column1">
 			<div class="box">

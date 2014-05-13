@@ -61,12 +61,13 @@ public class WishlistGen {
 	                           for (Element link : links) {
 	                          if(image.attr("alt").equalsIgnoreCase(link.text())){
 	                            // get the value from href attribute
-	                                   System.out.println("\nlink : " + link.attr("href"));
+	                                  /* System.out.println("\nlink : " + link.attr("href"));
 	                                   System.out.println("\ntext : " + link.text());
 	                                   System.out.println("\nsrc : " + image.attr("src"));
-	                                   System.out.println("\nprice : " + eles.get(i).text());
-	                                   items[i] = b.append(link.attr("href")).append("|").append(link.text()).append("|").append(image.attr("src")).append("|").append(eles.get(i).text()).toString();
-	                                   i++;
+	                                   System.out.println("\nprice : " + eles.get(i).text());*/
+	          items[i] = b.append(link.attr("href")).append("|").append(link.text()).append("|").append(image.attr("src")).append("|").append(eles.get(i).text()).toString();
+	          System.out.println("ITEM:"+items[i]);
+                    i++;
 	                          }
 	                                  
 	              
