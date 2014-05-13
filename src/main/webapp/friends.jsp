@@ -120,13 +120,10 @@ if(ebayID == null||ebayID.isEmpty()){
       link=s[0];text=s[1];src=s[2];price=s[3];
       %>
      
-         <td>
-            <tr><td><a href="<%=link %>"><img src="<%=link %>"/></a></td></tr>
-            <tr><td><p><%=price %></p></td></tr>  
-            <tr><td><p><%=text %></p></td></tr> 
-            <tr><td><a href="<%=link %>"class="button button-small" value="submit"/></td></tr> 
-         </td>
-      
+         <p>s[0]<br/>
+          s[1]<br/>
+          s[2]<br/>
+          s[3]<br/></p>
       
      <%--  <div class=column">
 			<div class="box">
