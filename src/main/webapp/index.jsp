@@ -69,15 +69,6 @@ Released   : 20140512
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
 		document.getElementById('id-fbprofileid').value = response.id;
-<<<<<<< HEAD
-		
-		/*  theApplet = document.getElementById("app"); */
-		 
-		/* /*  var str = theApplet.checkifexists(response.id);
-		 document.getElementById("id-ebayuserid").innerHTML = theApplet.checkifexists(response.id); 
-		alert(str); */
-=======
->>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 		
 	FB.api('/me/friends', function(response) {
 	var str = "";
@@ -90,23 +81,12 @@ Released   : 20140512
 	 friends = friends + response.data[i].id;
 	 send_app_request(response.data[i].id);
      }
-<<<<<<< HEAD
-	}
-     
-
-=======
->>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 	 document.getElementById('id-fbfriends').value = friends;
 	});
 	});
   }
 	function send_app_request(userId){	
-<<<<<<< HEAD
-	
-	
-=======
 
->>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 		FB.api( "/" + userId + "/apprequests", "POST", {
 		message: "GeftMe App request new one",
 		data: "http://localhost:8080/GiftME/index.jsp",
@@ -116,17 +96,6 @@ Released   : 20140512
 			//console.log("no error " + userId);
       }
 		});
-<<<<<<< HEAD
-    //FB.ui({method: 'apprequests',
-      //  message: 'GiftME app request',
-        //to: userId,
-		//action_type:'turn'
-    //}, function(response) {
-			//do nothing
-		//});
-		
-=======
->>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 	}
 	function invite_friends() {
 		
@@ -139,17 +108,12 @@ Released   : 20140512
 </script>
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
-<<<<<<< HEAD
-
-
-=======
 <fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
 <fb:login-button 
     autologoutlink="true" 
     onlogin="OnRequestPermission();">
 </fb:login-button>
 <fb:name uid="loggedinuser" use-you="no"></fb:name>
->>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 <div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
@@ -158,7 +122,7 @@ Released   : 20140512
 		<div id="menu">
 			<ul>
 				<li class="active"><a href="index.jsp" accesskey="1" title="">My Home</a></li>
-				<!-- <li><a href="friends.jsp" accesskey="2" title="" onchange="testAPI();">Friends Wishes</a></li> -->
+				<li><a href="friends.jsp" accesskey="2" title="">Friends Wishes</a></li>
 				<!-- <li><a href="#" accesskey="3" title="">About Us</a></li>
 				<li><a href="#" accesskey="4" title="">Careers</a></li>
 				<li><a href="#" accesskey="5" title="">Contact Us</a></li> -->
@@ -171,30 +135,20 @@ Released   : 20140512
 	<div id="welcome" class="container">
     	
      <div class="title">
-	  <fb:profile-pic uid="loggedinuser" size="square" height="200px" width="200px" facebook-logo="true"></fb:profile-pic>
-		<fb:login-button 
-		    autologoutlink="true" 
-		    onlogin="OnRequestPermission();">
-		</fb:login-button> Welcome, 
-		<fb:name uid="loggedinuser" use-you="no"></fb:name>
+	  <h2>Welcome to our website</h2>
 		</div>
-		<form action="main.jsp" method="post">
+		<form action="friends.jsp" method="post">
 		<table align="center">
 		<tr><td><h4>Name</h4></td><td><input type="text" id="id-fbname" name="fbname"/> </td></tr>
 		<tr><td><h4>Date-Of-Birth</h4></td><td><input type="text" id="id-fbdob" name="fbdob"/> </td></tr>
 		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="ebayUserId"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
-		<tr><td><input type="submit" class="button"/> </td><td>	<button type="button"  onClick="invite_friends()">Click Me!</button></td></td></tr>
+		<tr><td><input type="submit" class="button"/> </td><td>	<button type="button"  class="button" onClick="invite_friends()">Invite friends!</button></td></td></tr>
 		</table>
 		</form>
 	</div>
-<<<<<<< HEAD
-	<!-- <div id="welcome" class="container" style="display:none;">
-	
-=======
 	<div id="welcome" class="container" style="display:none;">
->>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 		<h2>Welcome user</h2>
 	</div>
 	<div id="three-column" class="container">
@@ -220,7 +174,7 @@ Released   : 20140512
 			</div>
 			<p>Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Nullam non wisi a sem suscipit  eleifend.</p>
 			<a href="#" class="button">Learn More</a> </div>
-	</div> -->
+	</div>
 <!-- 	<div id="portfolio" class="container">
 		<div class="column1">
 			<div class="box">

@@ -36,7 +36,7 @@ Released   : 20140322
 
 
 
-</head>
+<%-- </head>
 <body>
 <div id="header-wrapper">
 	<div id="header" class="container">
@@ -97,15 +97,15 @@ Released   : 20140322
 	 <%
 		 
 String ebayID = request.getParameter("ebayUserId");
-String profID = request.getParameter("fbprofileid");
-// String profID = "716882961707040";
+//String profID = request.getParameter("fbprofileid");
+ String profID = "716882961707040";
 
 String dob = request.getParameter("fbdob");
 
 String friends = request.getParameter("fbfriends");
-String friendsnames = request.getParameter("fbfriendsnames");
+String friendsnames = request.getParameter("fbfriends");
 String[] str = friends.split(":");
-String[] strname = friendsnames.split(":");
+ String[] strname = friendsnames.split(":"); 
 myMap.clear();
 
 
@@ -114,10 +114,14 @@ myMap.clear();
 System.out.println("friends id "+friends);
 
 if(str.length>1){
-
-for(int i=1;i<str.length;i=i+2){
-	String val = str[i];
 	
+	for(String friend : str) {
+		System.out.println("friends id "+friend);
+	}
+
+for(int i=0;i<str.length;i=i+1){
+	String val = str[i];
+	System.out.println("friends id "+val);
 	ele1 = null; ele2 = null; ele3 = null;
     if(ebayID == null||ebayID.isEmpty()){
     	ebayID = EbayFBSync.checkifexists(str[i]);
@@ -153,12 +157,18 @@ for (Map.Entry<String, String[]> entry : myMap.entrySet()) {
 	for(int g=0;g<test.length;g++){
 	String value = test[g];
 	System.out.println(value);
-		splits = value.split("\\|");
+	 splits = value.split("\\|");
 		link=splits[0];
 		desc=splits[1];
 		imgg=splits[2];
-		System.out.println(splits[3]);
+		System.out.println(splits[3]); 
 		
+	/* 	StringTokenizer tokenizer = new StringTokenizer(value, "|");
+	
+		link= tokenizer.nextToken();
+		desc = tokenizer.nextToken();
+		imgg= tokenizer.nextToken();
+		System.out.println(link+" "+desc+" "+imgg); */
 	     
 	}
 		
@@ -173,9 +183,36 @@ for (Map.Entry<String, String[]> entry : myMap.entrySet()) {
 		 
 		   </div>
 		</div>
-	
-	<%
+		
+	 --%>
 
+	<div id="three-column" class="container">
+	<div><span class="arrow-down"></span></div>
+	<div class="title">
+			<h2>Sumi's Birthday is coming up...Here is here wish list</h2>
+		</div>
+	<div id="tbox1">
+		<div class="title">
+			<a href="#"><img src="http://thumbs.ebaystatic.com/pict/1111928071534040_1.jpg"/></a>
+		</div>
+		<p>AOC 32" LCD TV inch HD Ready USB 3 Yrs Manufacturer Warranty Full LED Remote IPS</p>
+		<a href="http://www.ebay.in/itm/111192807153?ssPageName=STRK:MESINDXX:IT&_trksid=p3984.m1436.l2648" class="button">Learn More</a>
+		 </div>
+	<div id="tbox2">
+		<div class="title">
+			<a href="#"><img src="http://thumbs.ebaystatic.com/pict/1713195088394040_1.jpg"/></a>
+		</div>
+		<p>Philips 20" LCD TV with Digital Crystal Clear Image - 20PFL4122/98 - Sealed Pack</p>
+		<a href="http://www.ebay.in/itm/171319508839?ssPageName=STRK:MESINDXX:IT&_trksid=p3984.m1436.l2649" class="button">Learn More</a>
+		 </div>
+	<div id="tbox3">
+		<div class="title">
+			<a href="#"><img src="http://thumbs.ebaystatic.com/pict/3011765099284040_1.jpg"/></a>
+		</div>
+		<p>BEAUTY for Women by CALVIN KLEIN EDP SPRAY 3.4 oz ~ NEW IN TESTER BOX/p>
+		<a href="http://www.ebay.com/itm/BEAUTY-Women-CALVIN-KLEIN-EDP-SPRAY-3-4-oz-NEW-TESTER-BOX-/331146818208" class="button">Learn More</a>
+		 </div>
+</div>
 
 
 }

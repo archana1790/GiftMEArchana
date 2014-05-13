@@ -30,7 +30,7 @@ String profID = request.getParameter("fbprofileid");
 String dob = request.getParameter("fbdob");
 String friends = request.getParameter("fbfriends");
 
-EbayFBSync.add(profID, ebayID);
+/* EbayFBSync.add(profID, ebayID); */
 
 %>
 
