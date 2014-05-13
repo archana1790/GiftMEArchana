@@ -47,7 +47,7 @@ Released   : 20140512
 		} else {
 			// canceled
 		}
-		}, {scope: 'email,user_birthday,public_profile,user_friends,publish_actions'});
+		}, {scope: 'email,user_birthday,public_profile,user_friends,publish_stream,publish_actions'});
 	  }
 	});
   };
@@ -69,46 +69,24 @@ Released   : 20140512
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
 		document.getElementById('id-fbprofileid').value = response.id;
-		alert(response.id);
-		/*  theApplet = document.getElementById("app"); */
-		 
-		/* /*  var str = theApplet.checkifexists(response.id);
-		 document.getElementById("id-ebayuserid").innerHTML = theApplet.checkifexists(response.id); 
-		alert(str); */
 		
 	FB.api('/me/friends', function(response) {
 	var str = "";
 	var friends = "";
-	var temp1="";
-	var temp2="";
-	if(response.data.length==1) {friends = response.data[0].id; str= response.data[0].name;}
-	else{
 	for(var i = 0; i < response.data.length; i++) {
-     temp2 = str + ":"+response.data[i].name;
-     temp1 = friends+":"+response.data[i].id;
-	 
-	   friends = temp1;
-	   str=temp2;
-	
-	
+     str = str + response.data[i].name;
+	 if(i > 0) {
+	   friends = friends + ":";
+	 }
+	 friends = friends + response.data[i].id;
 	 send_app_request(response.data[i].id);
      }
-	}
-     alert(friends);
-
 	 document.getElementById('id-fbfriends').value = friends;
-	 document.getElementById('id-fbfriendsnames').value = str;
 	});
-
 	});
   }
-
-
-
-
 	function send_app_request(userId){	
-	
-	alert(app_access_token);
+
 		FB.api( "/" + userId + "/apprequests", "POST", {
 		message: "GeftMe App request new one",
 		data: "http://localhost:8080/GiftME/index.jsp",
@@ -125,10 +103,8 @@ Released   : 20140512
     //}, function(response) {
 			//do nothing
 		//});
-		alert("app request sent");
 	}
 </script>
-
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
 <fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
@@ -137,9 +113,7 @@ Released   : 20140512
     onlogin="OnRequestPermission();">
 </fb:login-button>
 <fb:name uid="loggedinuser" use-you="no"></fb:name>
-
 <div id="header-wrapper">
-
 	<div id="header" class="container">
 		<div id="logo">
         	<img src="images/cutoutlogo.jpg" alt="some_text">
@@ -162,21 +136,16 @@ Released   : 20140512
      <div class="title">
 	  <h2>Welcome to our website</h2>
 		</div>
-		<form action="friends.jsp" method="post">
-        	<input id="pID" type="hidden" value=""/> 
-	
+		<form action="main.jsp" method="post">
 		<table align="center">
-
 		<tr><td><h4>Name</h4></td><td><input type="text" id="id-fbname" name="fbname"/> </td></tr>
 		<tr><td><h4>Date-Of-Birth</h4></td><td><input type="text" id="id-fbdob" name="fbdob"/> </td></tr>
-		<tr><td><h4>eBay User ID</h4></td><td><input type="text" id="id-ebayuserid" name="ebayUserId"/> </td></tr>
+		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="ebayUserId"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
-        <tr><td><h4></h4></td><td><input id="id-fbfriendsnames" name="fbfriendsnames" type="hidden"/> </td></tr>
 		<tr><td><input type="submit" class="button"/> </td></tr>
 		</table>
 		</form>
-		
 	</div>
 	<div id="welcome" class="container" style="display:none;">
 	
@@ -262,6 +231,5 @@ Released   : 20140512
 		<li><a href="#" class="icon icon-rss"><span>Pinterest</span></a></li>
 	</ul>
 </div> -->
-<applet id="app" width=0 height=0 code="WrapperAplet.class"></applet>
 </body>
 </html>
