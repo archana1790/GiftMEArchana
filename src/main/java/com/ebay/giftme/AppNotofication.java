@@ -5,15 +5,12 @@ import java.util.List;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Facebook;
 import com.restfb.FacebookClient;
-import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 
@@ -45,14 +42,26 @@ public class AppNotofication
 
         String accessToken = rawAccessToken.split("=")[1];
         
-        String orgUserId = "716882961707040";
+        List<String> dbEntryList = CSVDBUtil.getList();
         
-        List<String> friends = findFacebookFriendsUsingRest(orgUserId,accessToken);
-        
-        for(String friend: friends) {
-        	postAppRequest(accessToken,friend,orgUserId);
+        for(String dbEntry : dbEntryList) {
+        	String tokens[] = dbEntry.split(",");
+        	if(tokens.length > 1 && tokens[0] !=null) {
+        		if(CSVDBUtil.isUpcomingBirthday(tokens[2])) {
+        	        List<String> friends = findFacebookFriendsUsingRest(tokens[0],accessToken);
+        	        for(String friend: friends) {
+        	        	try{
+        	        		postAppRequest(accessToken,friend,tokens[0]);
+        	        	}
+        	        	catch (Exception e) {
+        	        		e.printStackTrace();
+        	        	}
+        	        }
+        		}
+        	}
         }
         
+        //String orgUserId = "716882961707040";        
         //FacebookClient facebookClient = new DefaultFacebookClient(accessToken);
 
 //        String apprequestCall = "888459007847623/apprequests";
@@ -85,7 +94,8 @@ public class AppNotofication
     
     public static void postAppRequest(String accessToken, String userid, String orgUserId) {
     	
-    	String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=Friends%20Birthday%20Today%20Send%20a%20Gift";
+    	String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=%40%5B"+ orgUserId +"%5D%20Birthday%20Send%20a%20Gift";
+    	//String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=Friends%20Birthday%20Today%20Send%20a%20Gift";
     	//String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=@[" + orgUserId + "] Birthday Today, Send a Gift";
     	//String url =  "https://graph.facebook.com/" + userid + "/apprequests?access_token=" + accessToken + "&message=GiftMe";
         HttpClient httpClient = new HttpClient();
