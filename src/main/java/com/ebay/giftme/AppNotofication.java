@@ -45,7 +45,7 @@ public class AppNotofication
 
         String accessToken = rawAccessToken.split("=")[1];
         
-        String orgUserId = "888459007847623";
+        String orgUserId = "716882961707040";
         
         List<String> friends = findFacebookFriendsUsingRest(orgUserId,accessToken);
         
@@ -85,7 +85,8 @@ public class AppNotofication
     
     public static void postAppRequest(String accessToken, String userid, String orgUserId) {
     	
-    	String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=@[" + orgUserId + "] Birthday Today, Send a Gift";
+    	String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=Friends%20Birthday%20Today%20Send%20a%20Gift";
+    	//String url =  "https://graph.facebook.com/" + userid + "/notifications?access_token=" + accessToken + "&href=index.jsp&template=@[" + orgUserId + "] Birthday Today, Send a Gift";
     	//String url =  "https://graph.facebook.com/" + userid + "/apprequests?access_token=" + accessToken + "&message=GiftMe";
         HttpClient httpClient = new HttpClient();
 

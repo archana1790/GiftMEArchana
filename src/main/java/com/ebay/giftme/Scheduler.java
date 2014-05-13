@@ -38,7 +38,7 @@ public class Scheduler implements ServletContextListener {
 	//	System.out.println(slf.getCache().getMetricSize() + " Date is "
 		//		+ nextDate);
 
-		metricsTimer.scheduleAtFixedRate(new MetricsTimerTask(), nextDate,
+		metricsTimer.scheduleAtFixedRate(new MetricsTimerTask(), 10000,
 				METRICS_SCHEDULE);
 		System.out.println("Init processing done");
 		//metricsTimer.scheduleAtFixedRate(new MetricsTimerTask(), 1000*60*3,
