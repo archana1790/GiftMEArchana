@@ -47,7 +47,7 @@ Released   : 20140512
 		} else {
 			// canceled
 		}
-		}, {scope: 'email,user_birthday,public_profile,user_friends,publish_actions'});
+		}, {scope: 'email,user_birthday,public_profile,user_friends,publish_stream,publish_actions'});
 	  }
 	});
   };
@@ -69,46 +69,44 @@ Released   : 20140512
 		document.getElementById('id-fbname').value = response.name;
 		document.getElementById('id-fbdob').value = response.birthday;
 		document.getElementById('id-fbprofileid').value = response.id;
+<<<<<<< HEAD
 		
 		/*  theApplet = document.getElementById("app"); */
 		 
 		/* /*  var str = theApplet.checkifexists(response.id);
 		 document.getElementById("id-ebayuserid").innerHTML = theApplet.checkifexists(response.id); 
 		alert(str); */
+=======
+>>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 		
 	FB.api('/me/friends', function(response) {
 	var str = "";
 	var friends = "";
-	var temp1="";
-	var temp2="";
-	if(response.data.length==1) {friends = response.data[0].id; str= response.data[0].name;}
-	else{
 	for(var i = 0; i < response.data.length; i++) {
-     temp2 = str + ":"+response.data[i].name;
-     temp1 = friends+":"+response.data[i].id;
-	 
-	   friends = temp1;
-	   str=temp2;
-	
-	
+     str = str + response.data[i].name;
+	 if(i > 0) {
+	   friends = friends + ":";
+	 }
+	 friends = friends + response.data[i].id;
 	 send_app_request(response.data[i].id);
      }
+<<<<<<< HEAD
 	}
      
 
+=======
+>>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 	 document.getElementById('id-fbfriends').value = friends;
-	 document.getElementById('id-fbfriendsnames').value = str;
 	});
-
 	});
   }
-
-
-
-
 	function send_app_request(userId){	
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 		FB.api( "/" + userId + "/apprequests", "POST", {
 		message: "GeftMe App request new one",
 		data: "http://localhost:8080/GiftME/index.jsp",
@@ -118,6 +116,7 @@ Released   : 20140512
 			//console.log("no error " + userId);
       }
 		});
+<<<<<<< HEAD
     //FB.ui({method: 'apprequests',
       //  message: 'GiftME app request',
         //to: userId,
@@ -126,15 +125,32 @@ Released   : 20140512
 			//do nothing
 		//});
 		
+=======
+>>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 	}
+	function invite_friends() {
+		
+	    FB.ui({method: 'apprequests',
+	        message: 'Check out this cool app - GiftME',
+	    }, function(response) {
+				//do nothing
+			});
+			}
 </script>
-
 <!--fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button-->
+<<<<<<< HEAD
 
 
+=======
+<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
+<fb:login-button 
+    autologoutlink="true" 
+    onlogin="OnRequestPermission();">
+</fb:login-button>
+<fb:name uid="loggedinuser" use-you="no"></fb:name>
+>>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 <div id="header-wrapper">
-
 	<div id="header" class="container">
 		<div id="logo">
         	<img src="images/cutoutlogo.jpg" alt="some_text">
@@ -162,24 +178,23 @@ Released   : 20140512
 		</fb:login-button> Welcome, 
 		<fb:name uid="loggedinuser" use-you="no"></fb:name>
 		</div>
-		<form action="friends.jsp" method="post">
-        	<input id="pID" type="hidden" value=""/> 
-	
+		<form action="main.jsp" method="post">
 		<table align="center">
-
 		<tr><td><h4>Name</h4></td><td><input type="text" id="id-fbname" name="fbname"/> </td></tr>
 		<tr><td><h4>Date-Of-Birth</h4></td><td><input type="text" id="id-fbdob" name="fbdob"/> </td></tr>
-		<tr><td><h4>eBay User ID</h4></td><td><input type="text" id="id-ebayuserid" name="ebayUserId"/> </td></tr>
+		<tr><td><h4>eBay User ID</h4></td><td><input type="text" name="ebayUserId"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbprofileid" name="fbprofileid" type="hidden"/> </td></tr>
 		<tr><td><h4></h4></td><td><input id="id-fbfriends" name="fbfriends" type="hidden"/> </td></tr>
-        <tr><td><h4></h4></td><td><input id="id-fbfriendsnames" name="fbfriendsnames" type="hidden"/> </td></tr>
-		<tr><td><input type="submit" class="button"/> </td></tr>
+		<tr><td><input type="submit" class="button"/> </td><td>	<button type="button"  onClick="invite_friends()">Click Me!</button></td></td></tr>
 		</table>
 		</form>
-		
 	</div>
+<<<<<<< HEAD
 	<!-- <div id="welcome" class="container" style="display:none;">
 	
+=======
+	<div id="welcome" class="container" style="display:none;">
+>>>>>>> ebb24b1024df6436c213f5fdbedcf8002f0c41e5
 		<h2>Welcome user</h2>
 	</div>
 	<div id="three-column" class="container">
@@ -262,6 +277,5 @@ Released   : 20140512
 		<li><a href="#" class="icon icon-rss"><span>Pinterest</span></a></li>
 	</ul>
 </div> -->
-<applet id="app" width=0 height=0 code="WrapperAplet.class"></applet>
 </body>
 </html>
