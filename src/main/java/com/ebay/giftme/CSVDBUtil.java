@@ -6,9 +6,11 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class CSVDBUtil {
 
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		try {
@@ -59,7 +61,7 @@ public class CSVDBUtil {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 	public static void writeFile() throws Exception {
 		File file = new File("fb_ebay.csv");
@@ -81,12 +83,49 @@ public class CSVDBUtil {
 		
 		pw.close();
 	}
+	
+	
+    public static void appendItem(String line) throws Exception{
+        
+        try{
+         
+        System.out.println(line);
+        URL resourceUrl = CSVDBUtil.class.getResource("/fb_ebay123.csv");
+        File file = new File(resourceUrl.toURI());
+
+        //if file doesnt exists, then create it
+        if(!file.exists()){
+        	System.out.println("FILE PATH:"+file.getAbsolutePath());
+        	
+               file.createNewFile();
+        }
+
+        
+        if(!getrow(line)){
+        	System.out.println("FILE PATH:"+file.getAbsolutePath());
+               //true = append file
+               FileWriter fileWritter = new FileWriter(file,true);
+                BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+                bufferWritter.write("\n");
+                bufferWritter.write(line);
+                bufferWritter.close();
+               
+        }
+
+
+}catch(IOException e){
+        e.printStackTrace();
+}
+}
+
+	
+	
 
 	@SuppressWarnings("resource")
-	public static String getrow(String fbid) throws Exception {
+	public static boolean getrow(String fbid) throws Exception {
 
-		InputStream fstream = CSVDBUtil.class.getResourceAsStream("fb_ebay.csv");
-
+		InputStream fstream = CSVDBUtil.class.getResourceAsStream("/fb_ebay123.csv");
+        
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		String strLine;
@@ -95,18 +134,18 @@ public class CSVDBUtil {
 			if (strLine.contains(fbid)) {
 				System.out.println(strLine);
 				in.close();
-				return strLine;
+				return true;
 			}
 		}
 
 		in.close();
-		return strLine;
+		return false;
 
 	}
 
 	public static List<String> getList() throws Exception {
 
-		InputStream fstream = CSVDBUtil.class.getResourceAsStream("fb_ebay.csv");
+		InputStream fstream = CSVDBUtil.class.getResourceAsStream("/fb_ebay123.csv");
 
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));

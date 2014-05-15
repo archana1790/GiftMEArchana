@@ -27,6 +27,7 @@ Released   : 20140322
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="com.ebay.giftme.CSVDBUtil" %>
 <%@ page import="java.util.StringTokenizer" %>
 <%String[] output=null; %>
 <%String[] ele1, ele2, ele3;%>
@@ -34,7 +35,20 @@ Released   : 20140322
 
 <%String name="";String[] vals;String friendname="";String[] splits;String link="";String imgg="";String price="";String desc="";%> 
 
+<%
 
+String ebayID = request.getParameter("ebayUserId");
+String profID = request.getParameter("fbprofileid");
+//String profID = "716882961707040";
+
+String dob = request.getParameter("fbdob");
+
+String finalS = profID+","+ebayID+","+dob;
+
+CSVDBUtil.appendItem(finalS);
+
+
+%>
 
 <%-- </head>
 <body>
@@ -92,60 +106,60 @@ Released   : 20140322
 
 	<div><span class="arrow-down"></span></div>
 	<div id="portfolio" class="container">
-	<table>
+	<table> -->
 	 
 	 <%
 		 
-String ebayID = request.getParameter("ebayUserId");
-//String profID = request.getParameter("fbprofileid");
- String profID = "716882961707040";
-
-String dob = request.getParameter("fbdob");
-
-String friends = request.getParameter("fbfriends");
-String friendsnames = request.getParameter("fbfriends");
-String[] str = friends.split(":");
- String[] strname = friendsnames.split(":"); 
-myMap.clear();
-
-
-
-
-System.out.println("friends id "+friends);
-
-if(str.length>1){
+	String ebayID = request.getParameter("ebayUserId");
+	//String profID = request.getParameter("fbprofileid");
+	 String profID = "716882961707040";
 	
-	for(String friend : str) {
-		System.out.println("friends id "+friend);
+	String dob = request.getParameter("fbdob");
+	
+	String friends = request.getParameter("fbfriends");
+	String friendsnames = request.getParameter("fbfriends");
+	String[] str = friends.split(":");
+	 String[] strname = friendsnames.split(":"); 
+	myMap.clear();
+	
+	
+	
+	
+	System.out.println("friends id "+friends);
+	
+	if(str.length>1){
+		
+		for(String friend : str) {
+			System.out.println("friends id "+friend);
+		}
+	
+	for(int i=0;i<str.length;i=i+1){
+		String val = str[i];
+		System.out.println("friends id "+val);
+		ele1 = null; ele2 = null; ele3 = null;
+	    if(ebayID == null||ebayID.isEmpty()){
+	    	ebayID = EbayFBSync.checkifexists(str[i]);
+	    	 output= WishlistGen.getWishList(ebayID);
+	    	 myMap.put(val, output);
+	    
+	    
+	    	 
+	    }
+	
+		
+		
 	}
-
-for(int i=0;i<str.length;i=i+1){
-	String val = str[i];
-	System.out.println("friends id "+val);
-	ele1 = null; ele2 = null; ele3 = null;
-    if(ebayID == null||ebayID.isEmpty()){
-    	ebayID = EbayFBSync.checkifexists(str[i]);
-    	 output= WishlistGen.getWishList(ebayID);
-    	 myMap.put(val, output);
-    
-    
-    	 
-    }
-
-	
-	
-}
-}
-else{
-if(ebayID == null||ebayID.isEmpty()){
-	ebayID = EbayFBSync.checkifexists(str[0]);
-	 
-	 System.out.println(ebayID);
-	  output= WishlistGen.getWishList(ebayID);
-	  myMap.put(str[0], output);
-	 
-}
-}
+	}
+	else{
+	if(ebayID == null||ebayID.isEmpty()){
+		ebayID = EbayFBSync.checkifexists(str[0]);
+		 
+		 System.out.println(ebayID);
+		  output= WishlistGen.getWishList(ebayID);
+		  myMap.put(str[0], output);
+		 
+	}
+	}
 
 for (Map.Entry<String, String[]> entry : myMap.entrySet()) {
 	 name= entry.getKey();
@@ -173,7 +187,7 @@ for (Map.Entry<String, String[]> entry : myMap.entrySet()) {
 	}
 		
 	%>
-	
+
 	<div class="column" style="position:relative;float:left;">
 			<div class="box">
 			 <a id="img1" href="<%=link %>"> ><img src="<%=imgg %>"/></a>
